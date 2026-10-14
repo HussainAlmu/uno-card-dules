@@ -1,42 +1,105 @@
 /*---------------------------- Variables (state) ----------------------------*/
 let UserCardsElm = []
+let turn 
 /*------------------------ Cached Element References ------------------------*/
-let contanerUserCardsElm = document.querySelector("#user-card-contaner")
+const contanerUserCardsElm = document.querySelector("#user-card-contaner")
+const discardCardElm = document.querySelector("#DiscardCard")
+const drawCardButtonElm = document.querySelector("#draw-card")
+const contanerBotCardsElm = document.querySelector("#bot-card-contaner")
 
 
 /*-------------------------------- Functions --------------------------------*/
-function drawCards() {
-
-    for (let index = 0; index < 9; index++) {
-        const newCard = document.createElement("h1");
-        newCard.textContent = Math.floor(Math.random() * 9) + 1;
-        newCard.classList.add('user-card');
-        UserCardsElm.push(newCard)
-        let cardColor = Math.floor(Math.random() * 4) + 1
-        if (cardColor === 1) {
-            newCard.style.color = "blue";
-        } else if (cardColor === 2) {
-            newCard.style.color = "red";
-        } else if (cardColor === 3) {
-            newCard.style.color = "green";
-        } else if (cardColor === 4) {
-            newCard.style.color = "yellow";
+function drawCards(amount, side) {
+    if (side === 'both') {
+        for (let index = 0; index < amount; index++) {
+            const newCard = document.createElement("h1");
+            newCard.textContent = Math.floor(Math.random() * 9) + 1;
+            newCard.classList.add('user-card');
+            UserCardsElm.push(newCard)
+            let cardColor = Math.floor(Math.random() * 4) + 1
+            if (cardColor === 1) {
+                newCard.style.color = "blue";
+            } else if (cardColor === 2) {
+                newCard.style.color = "red";
+            } else if (cardColor === 3) {
+                newCard.style.color = "green";
+            } else if (cardColor === 4) {
+                newCard.style.color = "yellow";
+            }
+            contanerUserCardsElm.append(newCard);
         }
-        contanerUserCardsElm.append(newCard);
-
+         for (let index = 0; index < amount; index++) {
+            const newCard = document.createElement("h1");
+            newCard.textContent = Math.floor(Math.random() * 9) + 1;
+            newCard.classList.add('user-card');
+            UserCardsElm.push(newCard)
+            let cardColor = Math.floor(Math.random() * 4) + 1
+            if (cardColor === 1) {
+                newCard.style.color = "blue";
+            } else if (cardColor === 2) {
+                newCard.style.color = "red";
+            } else if (cardColor === 3) {
+                newCard.style.color = "green";
+            } else if (cardColor === 4) {
+                newCard.style.color = "yellow";
+            }
+            contanerBotCardsElm.append(newCard);
+        }
+    }
+    else if (side === 'user'){
+        for (let index = 0; index < amount; index++) {
+            const newCard = document.createElement("h1");
+            newCard.textContent = Math.floor(Math.random() * 9) + 1;
+            newCard.classList.add('user-card');
+            UserCardsElm.push(newCard)
+            let cardColor = Math.floor(Math.random() * 4) + 1
+            if (cardColor === 1) {
+                newCard.style.color = "blue";
+            } else if (cardColor === 2) {
+                newCard.style.color = "red";
+            } else if (cardColor === 3) {
+                newCard.style.color = "green";
+            } else if (cardColor === 4) {
+                newCard.style.color = "yellow";
+            }
+            contanerUserCardsElm.append(newCard);
+        }
     }
 }
-drawCards()
+function createDiscardCard() {
+    discardCardElm.textContent = Math.floor(Math.random() * 9) + 1
+    let cardColor = Math.floor(Math.random() * 4) + 1
+    if (cardColor === 1) {
+        discardCardElm.style.color = "blue";
+    } else if (cardColor === 2) {
+        discardCardElm.style.color = "red";
+    } else if (cardColor === 3) {
+        discardCardElm.style.color = "green";
+    } else if (cardColor === 4) {
+        discardCardElm.style.color = "yellow";
+    }
+}
 
-
-function printCardElm(event) {
+function playCard(event) {
+    if (event.target.textContent === discardCardElm.textContent || event.target.style.color === discardCardElm.style.color) {
+        console.log(true)
+        event.target.remove()
+        discardCardElm.textContent = event.target.textContent
+        discardCardElm.style.color = event.target.style.color
+    }
     console.log(event.target)
 }
 
 
 
+
+drawCards(9 , 'both')
+createDiscardCard()
+
+
+
 /*----------------------------- Event Listeners -----------------------------*/
 
-UserCardsElm.forEach(element => {
-    element.addEventListener('click', printCardElm)
-});
+
+contanerUserCardsElm.addEventListener('click', playCard)
+drawCardButtonElm.addEventListener('click', () => drawCards(1 , "user"))
