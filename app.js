@@ -1,6 +1,6 @@
 /*---------------------------- Variables (state) ----------------------------*/
 let UserCardsElm = []
-let turn 
+let turn
 /*------------------------ Cached Element References ------------------------*/
 const contanerUserCardsElm = document.querySelector("#user-card-contaner")
 const discardCardElm = document.querySelector("#DiscardCard")
@@ -28,7 +28,7 @@ function drawCards(amount, side) {
             }
             contanerUserCardsElm.append(newCard);
         }
-         for (let index = 0; index < amount; index++) {
+        for (let index = 0; index < amount; index++) {
             const newCard = document.createElement("h1");
             newCard.textContent = Math.floor(Math.random() * 9) + 1;
             newCard.classList.add('user-card');
@@ -46,7 +46,7 @@ function drawCards(amount, side) {
             contanerBotCardsElm.append(newCard);
         }
     }
-    else if (side === 'user'){
+    else if (side === 'user') {
         for (let index = 0; index < amount; index++) {
             const newCard = document.createElement("h1");
             newCard.textContent = Math.floor(Math.random() * 9) + 1;
@@ -86,14 +86,27 @@ function playCard(event) {
         event.target.remove()
         discardCardElm.textContent = event.target.textContent
         discardCardElm.style.color = event.target.style.color
+        turn = "bot"
     }
-    console.log(event.target)
+    for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
+        if (contanerBotCardsElm.children[index].textContent === discardCardElm.textContent || contanerBotCardsElm.children[index].textContent === discardCardElm.style.color) {
+            contanerBotCardsElm.children[index].textContent = event.target.textContent
+            contanerBotCardsElm.children[index].textContent = event.target.style.color
+            contanerBotCardsElm.children[index].remove()
+            turn = 'user'
+            break
+        }else {
+            
+        }
+    }
+
+
 }
 
 
 
 
-drawCards(9 , 'both')
+drawCards(9, 'both')
 createDiscardCard()
 
 
@@ -102,4 +115,4 @@ createDiscardCard()
 
 
 contanerUserCardsElm.addEventListener('click', playCard)
-drawCardButtonElm.addEventListener('click', () => drawCards(1 , "user"))
+drawCardButtonElm.addEventListener('click', () => drawCards(1, "user"))
