@@ -9,81 +9,97 @@ const contanerBotCardsElm = document.querySelector("#bot-card-contaner")
 
 
 /*-------------------------------- Functions --------------------------------*/
+function PickColor(newCard) {
+    let cardColor = Math.floor(Math.random() * 4) + 1
+    if (cardColor === 1) {
+        newCard.style.color = "blue";
+    } else if (cardColor === 2) {
+        newCard.style.color = "red";
+    } else if (cardColor === 3) {
+        newCard.style.color = "green";
+    } else if (cardColor === 4) {
+        newCard.style.color = "yellow";
+    }
+}
+
 function drawCards(amount, side) {
     if (side === 'both') {
         for (let index = 0; index < amount; index++) {
-            const newCard = document.createElement("h1");
-            newCard.textContent = Math.floor(Math.random() * 9) + 1;
-            newCard.classList.add('user-card');
-            UserCardsElm.push(newCard)
-            let cardColor = Math.floor(Math.random() * 4) + 1
-            if (cardColor === 1) {
-                newCard.style.color = "blue";
-            } else if (cardColor === 2) {
-                newCard.style.color = "red";
-            } else if (cardColor === 3) {
-                newCard.style.color = "green";
-            } else if (cardColor === 4) {
-                newCard.style.color = "yellow";
-            }
-            contanerUserCardsElm.append(newCard);
+            CardGen(contanerUserCardsElm)
         }
+
+
         for (let index = 0; index < amount; index++) {
-            const newCard = document.createElement("h1");
-            newCard.textContent = Math.floor(Math.random() * 9) + 1;
-            newCard.classList.add('user-card');
-            UserCardsElm.push(newCard)
-            let cardColor = Math.floor(Math.random() * 4) + 1
-            if (cardColor === 1) {
-                newCard.style.color = "blue";
-            } else if (cardColor === 2) {
-                newCard.style.color = "red";
-            } else if (cardColor === 3) {
-                newCard.style.color = "green";
-            } else if (cardColor === 4) {
-                newCard.style.color = "yellow";
-            }
-            contanerBotCardsElm.append(newCard);
+            CardGen(contanerBotCardsElm)
         }
     }
+
     else if (side === 'user') {
         for (let index = 0; index < amount; index++) {
-            const newCard = document.createElement("h1");
-            newCard.textContent = Math.floor(Math.random() * 9) + 1;
-            newCard.classList.add('user-card');
-            UserCardsElm.push(newCard)
-            let cardColor = Math.floor(Math.random() * 4) + 1
-            if (cardColor === 1) {
-                newCard.style.color = "blue";
-            } else if (cardColor === 2) {
-                newCard.style.color = "red";
-            } else if (cardColor === 3) {
-                newCard.style.color = "green";
-            } else if (cardColor === 4) {
-                newCard.style.color = "yellow";
-            }
-            contanerUserCardsElm.append(newCard);
+            CardGen(contanerUserCardsElm)
         }
     } else if (side === 'bot') {
         for (let index = 0; index < amount; index++) {
-            const newCard = document.createElement("h1");
-            newCard.textContent = Math.floor(Math.random() * 9) + 1;
-            newCard.classList.add('user-card');
-            UserCardsElm.push(newCard)
-            let cardColor = Math.floor(Math.random() * 4) + 1
-            if (cardColor === 1) {
-                newCard.style.color = "blue";
-            } else if (cardColor === 2) {
-                newCard.style.color = "red";
-            } else if (cardColor === 3) {
-                newCard.style.color = "green";
-            } else if (cardColor === 4) {
-                newCard.style.color = "yellow";
-            }
-            contanerBotCardsElm.append(newCard);
+            CardGen(contanerBotCardsElm)
         }
     }
 }
+
+function CardGen(contaner) {
+    const newCard = document.createElement("h1");
+    const number = Math.floor(Math.random() * 14) + 1;
+    if (number < 10) {
+        newCard.textContent = number
+        newCard.classList.add('user-card');
+        UserCardsElm.push(newCard)
+        PickColor(newCard)
+
+        contaner.append(newCard);
+    } else if (number === 10) {
+        newCard.textContent = "2+"
+        newCard.classList.add('user-card');
+        UserCardsElm.push(newCard)
+        PickColor(newCard)
+        contaner.append(newCard);
+    } else if (number === 11) {
+        newCard.textContent = "╱"
+        newCard.classList.add('user-card');
+        UserCardsElm.push(newCard)
+        PickColor(newCard)
+        contaner.append(newCard);
+    } else if (number === 12) {
+        newCard.textContent = "⊙"
+        newCard.classList.add('user-card');
+        UserCardsElm.push(newCard)
+        PickColor(newCard)
+        contaner.append(newCard);
+    }
+    else if (number === 13) {
+        newCard.textContent = "4+"
+        newCard.classList.add('user-card');
+        UserCardsElm.push(newCard)
+        contaner.append(newCard);
+    }
+    else if (number === 14) {
+        newCard.textContent = "✦"
+        newCard.classList.add('user-card');
+        UserCardsElm.push(newCard)
+        contaner.append(newCard);
+    }
+    function PickColor(newCard) {
+        let cardColor = Math.floor(Math.random() * 4) + 1
+        if (cardColor === 1) {
+            newCard.style.color = "blue";
+        } else if (cardColor === 2) {
+            newCard.style.color = "red";
+        } else if (cardColor === 3) {
+            newCard.style.color = "green";
+        } else if (cardColor === 4) {
+            newCard.style.color = "yellow";
+        }
+    }
+}
+
 function createDiscardCard() {
     discardCardElm.textContent = Math.floor(Math.random() * 9) + 1
     let cardColor = Math.floor(Math.random() * 4) + 1
@@ -105,7 +121,12 @@ function playCard(event) {
             event.target.remove()
             discardCardElm.textContent = event.target.textContent
             discardCardElm.style.color = event.target.style.color
-            turn = "bot"
+
+            turn = event.target.textContent === "╱" || event.target.textContent === "⊙" ? "user" : "bot"
+            if (event.target.textContent === '2+'){
+                drawCards(2,'bot')
+                turn = 'user'
+            }
         }
     }
 
@@ -116,7 +137,7 @@ function playCard(event) {
                 discardCardElm.textContent = contanerBotCardsElm.children[index].textContent
                 discardCardElm.style.color = contanerBotCardsElm.children[index].style.color
                 contanerBotCardsElm.children[index].remove()
-                turn = 'user'
+                turn = event.target.textContent === "╱" || event.target.textContent === "⊙" ? "user" : "user"
                 botPlayedCard = true
                 break
             }
