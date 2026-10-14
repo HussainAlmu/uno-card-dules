@@ -64,6 +64,24 @@ function drawCards(amount, side) {
             }
             contanerUserCardsElm.append(newCard);
         }
+    } else if (side === 'bot') {
+        for (let index = 0; index < amount; index++) {
+            const newCard = document.createElement("h1");
+            newCard.textContent = Math.floor(Math.random() * 9) + 1;
+            newCard.classList.add('user-card');
+            UserCardsElm.push(newCard)
+            let cardColor = Math.floor(Math.random() * 4) + 1
+            if (cardColor === 1) {
+                newCard.style.color = "blue";
+            } else if (cardColor === 2) {
+                newCard.style.color = "red";
+            } else if (cardColor === 3) {
+                newCard.style.color = "green";
+            } else if (cardColor === 4) {
+                newCard.style.color = "yellow";
+            }
+            contanerBotCardsElm.append(newCard);
+        }
     }
 }
 function createDiscardCard() {
@@ -81,26 +99,32 @@ function createDiscardCard() {
 }
 
 function playCard(event) {
-    if (event.target.textContent === discardCardElm.textContent || event.target.style.color === discardCardElm.style.color) {
-        console.log(true)
-        event.target.remove()
-        discardCardElm.textContent = event.target.textContent
-        discardCardElm.style.color = event.target.style.color
-        turn = "bot"
-    }
-    for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
-        if (contanerBotCardsElm.children[index].textContent === discardCardElm.textContent || contanerBotCardsElm.children[index].textContent === discardCardElm.style.color) {
-            contanerBotCardsElm.children[index].textContent = event.target.textContent
-            contanerBotCardsElm.children[index].textContent = event.target.style.color
-            contanerBotCardsElm.children[index].remove()
-            turn = 'user'
-            break
-        }else {
-            
+    if (event && event.target) {
+        if (event.target.textContent === discardCardElm.textContent || event.target.style.color === discardCardElm.style.color) {
+            console.log(true)
+            event.target.remove()
+            discardCardElm.textContent = event.target.textContent
+            discardCardElm.style.color = event.target.style.color
+            turn = "bot"
         }
     }
 
-
+    let botPlayedCard = false
+    if (turn === 'bot') {
+        for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
+            if (contanerBotCardsElm.children[index].textContent === discardCardElm.textContent || contanerBotCardsElm.children[index].style.color === discardCardElm.style.color) {
+                discardCardElm.textContent = contanerBotCardsElm.children[index].textContent
+                discardCardElm.style.color = contanerBotCardsElm.children[index].style.color
+                contanerBotCardsElm.children[index].remove()
+                turn = 'user'
+                botPlayedCard = true
+                break
+            }
+        }
+        if (!botPlayedCard) {
+            drawCards(1, "bot")
+        }
+    }
 }
 
 
@@ -116,3 +140,9 @@ createDiscardCard()
 
 contanerUserCardsElm.addEventListener('click', playCard)
 drawCardButtonElm.addEventListener('click', () => drawCards(1, "user"))
+
+drawCardButtonElm.addEventListener("click", () => {
+    turn = "bot";
+    playCard();
+});
+
