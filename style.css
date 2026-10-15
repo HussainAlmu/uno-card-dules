@@ -6,3 +6,7 @@
     display: flex;
     gap: 2em;
     }
+    .pick-color-button{
+    display: none;
+    }
+       
