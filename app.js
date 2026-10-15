@@ -1,6 +1,7 @@
 /*---------------------------- Variables (state) ----------------------------*/
 let UserCardsElm = []
 let turn
+let isDrawingCards = false
 /*------------------------ Cached Element References ------------------------*/
 const contanerUserCardsElm = document.querySelector("#user-card-contaner")
 const discardCardElm = document.querySelector("#DiscardCard")
@@ -22,26 +23,34 @@ function PickColor(newCard) {
     }
 }
 
-function drawCards(amount, side) {
+async function drawCards(amount, side) {
     if (side === 'both') {
         for (let index = 0; index < amount; index++) {
             CardGen(contanerUserCardsElm)
+
         }
 
 
         for (let index = 0; index < amount; index++) {
             CardGen(contanerBotCardsElm)
+
         }
     }
 
     else if (side === 'user') {
+        isDrawingCards = true
         for (let index = 0; index < amount; index++) {
             CardGen(contanerUserCardsElm)
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
+        isDrawingCards = false
     } else if (side === 'bot') {
+        isDrawingCards = true
         for (let index = 0; index < amount; index++) {
             CardGen(contanerBotCardsElm)
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
+        isDrawingCards = false
     }
 }
 
@@ -128,6 +137,10 @@ function createDiscardCard() {
 }
 
 function playCard(event) {
+    if (isDrawingCards) {
+        if (!event && turn === 'bot') setTimeout(() => playCard(), 100)
+        return
+    }
     if (event && event.target) {
         console.log(event.target)
         if (event.target.textContent === discardCardElm.textContent || event.target.style.color === discardCardElm.style.color) {
