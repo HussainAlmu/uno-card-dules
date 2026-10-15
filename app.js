@@ -69,8 +69,8 @@ function CardGen(contaner) {
         newCard.src = `image/${color}_reverse.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
-       newCard.style.color = color
-         newCard.textContent = 's'
+        newCard.style.color = color
+        newCard.textContent = 's'
         contaner.append(newCard);
 
     } else if (number === 12) {
@@ -119,17 +119,12 @@ function CardGen(contaner) {
 }
 
 function createDiscardCard() {
-    discardCardElm.textContent = Math.floor(Math.random() * 9) + 1
-    let cardColor = Math.floor(Math.random() * 4) + 1
-    if (cardColor === 1) {
-        discardCardElm.style.color = "blue";
-    } else if (cardColor === 2) {
-        discardCardElm.style.color = "red";
-    } else if (cardColor === 3) {
-        discardCardElm.style.color = "green";
-    } else if (cardColor === 4) {
-        discardCardElm.style.color = "yellow";
-    }
+    const number = Math.floor(Math.random() * 9) + 1
+    const colors = ["blue", "red", "green", "yellow"]
+    const color = colors[Math.floor(Math.random() * colors.length)]
+    discardCardElm.textContent = number
+    discardCardElm.style.color = color
+    discardCardElm.src = `image/${color}_${number}.png`
 }
 
 function playCard(event) {
@@ -139,6 +134,7 @@ function playCard(event) {
             event.target.remove()
             discardCardElm.textContent = event.target.textContent
             discardCardElm.style.color = event.target.style.color
+            discardCardElm.src = event.target.src
 
             turn = event.target.textContent === "s" || event.target.textContent === "⊙" ? "user" : "bot"
             if (event.target.textContent === '2+') {
@@ -152,6 +148,7 @@ function playCard(event) {
                 button.style.display = "block";
             });
             discardCardElm.textContent = '✦'
+            discardCardElm.src = event.target.src
             console.log(event.target)
         }
         if (event.target.textContent === '4+') {
@@ -160,6 +157,7 @@ function playCard(event) {
             colorPickButtonElm.forEach((button) => {
                 button.style.display = "block";
                 discardCardElm.textContent = '4+'
+                discardCardElm.src = event.target.src
             });
         }
     }
@@ -168,41 +166,57 @@ function playCard(event) {
 
     let botPlayedCard = false
     if (turn === 'bot') {
-        for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
-            if (contanerBotCardsElm.children[index].textContent === '4+') {
-                contanerBotCardsElm.children[index].remove()
-                discardCardElm.textContent = '4+'
-                discardCardElm.style.color = findCommon()
-                drawCards(4, 'user')
-            }
-            if (contanerBotCardsElm.children[index].textContent === '✦') {
-                contanerBotCardsElm.children[index].remove()
-                discardCardElm.textContent = '✦'
-                discardCardElm.style.color = findCommon()
-                turn = 'user'
-                return
-            }
-            if (contanerBotCardsElm.children[index].textContent === discardCardElm.textContent || contanerBotCardsElm.children[index].style.color === discardCardElm.style.color || contanerBotCardsElm.children[index].textContent === '4+') {
-                const playedCardText = contanerBotCardsElm.children[index].textContent
-                discardCardElm.textContent = playedCardText
-                discardCardElm.style.color = contanerBotCardsElm.children[index].style.color
-                contanerBotCardsElm.children[index].remove()
-                turn = playedCardText === "s" || playedCardText === "⊙" ? "bot" : "user"
-                if (playedCardText === '2+') {
-                    drawCards(2, 'user')
-                    turn = 'bot'
-                }
-                botPlayedCard = true
-                break
-            }
+        drawCardButtonElm.disabled = true
+        contanerUserCardsElm.style.pointerEvents = "none"
+        setTimeout(() => {
+            drawCardButtonElm.disabled = false
+            contanerUserCardsElm.style.pointerEvents = "auto"
+            for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
+                const botCard = contanerBotCardsElm.children[index]
 
-        }
-        if (!botPlayedCard) {
-            drawCards(1, "bot")
-            turn = "user"
-        } else if (turn === "bot") {
-            playCard()
-        }
+                if (botCard.textContent === '4+') {
+                    discardCardElm.textContent = '4+'
+                    discardCardElm.src = botCard.src
+                    discardCardElm.style.color = findCommon()
+                    botCard.remove()
+                    drawCards(4, 'user')
+                    turn = 'bot'
+                    botPlayedCard = true
+                    break
+                }
+
+                if (botCard.textContent === '✦') {
+                    discardCardElm.textContent = '✦'
+                    discardCardElm.src = botCard.src
+                    botCard.remove()
+                    discardCardElm.style.color = findCommon()
+                    turn = 'user'
+                    botPlayedCard = true
+                    break
+                }
+
+                if (botCard.textContent === discardCardElm.textContent || botCard.style.color === discardCardElm.style.color) {
+                    const playedCardText = botCard.textContent
+                    discardCardElm.textContent = playedCardText
+                    discardCardElm.style.color = botCard.style.color
+                    discardCardElm.src = botCard.src
+                    botCard.remove()
+                    turn = playedCardText === "s" || playedCardText === "⊙" ? "bot" : "user"
+                    if (playedCardText === '2+') {
+                        drawCards(2, 'user')
+                        turn = 'bot'
+                    }
+                    botPlayedCard = true
+                    break
+                }
+            }
+            if (!botPlayedCard) {
+                drawCards(1, "bot")
+                turn = "user"
+            } else if (turn === "bot") {
+                playCard()
+            }
+        }, 800)
     }
 }
 
@@ -256,10 +270,14 @@ createDiscardCard()
 
 contanerUserCardsElm.addEventListener('click', playCard)
 drawCardButtonElm.addEventListener('click', () => drawCards(1, "user"))
+
+
 drawCardButtonElm.addEventListener("click", () => {
     turn = "bot";
     playCard();
 });
+
+
 colorPickButtonElm.forEach((button) => {
     button.addEventListener('click', UserColor)
 })

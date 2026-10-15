@@ -1,17 +1,23 @@
-    #user-card-contaner{
-    display: flex;
-    gap: 2em;
+    #user-card-contaner {
+      display: flex;
+      gap: 0.3em;
     }
-      #bot-card-contaner{
-    display: flex;
-    gap: 2em;
+
+    #bot-card-contaner {
+      display: flex;
+      gap: 0.3em;
     }
+
     #user-card-contaner img,
-    #bot-card-contaner img{
-    width: 100px;
-    
+    #bot-card-contaner img {
+      width: 100px;
+
     }
-    .pick-color-button{
-    display: none;
+
+    .pick-color-button {
+      display: none;
     }
-       
+
+    #DiscardCard {
+      width: 100px;
+    }
