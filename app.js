@@ -151,7 +151,20 @@ function playCard(event) {
     let botPlayedCard = false
     if (turn === 'bot') {
         for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
-            if (contanerBotCardsElm.children[index].textContent === discardCardElm.textContent || contanerBotCardsElm.children[index].style.color === discardCardElm.style.color) {
+            if (contanerBotCardsElm.children[index].textContent === '4+') {
+                contanerBotCardsElm.children[index].remove()
+                discardCardElm.textContent = '4+'
+                discardCardElm.style.color = findCommon()
+                drawCards(4, 'user')
+            }
+            if (contanerBotCardsElm.children[index].textContent === '✦') {
+                contanerBotCardsElm.children[index].remove()
+                discardCardElm.textContent = '✦'
+                discardCardElm.style.color = findCommon()
+                turn = 'user'
+                return
+            }
+            if (contanerBotCardsElm.children[index].textContent === discardCardElm.textContent || contanerBotCardsElm.children[index].style.color === discardCardElm.style.color || contanerBotCardsElm.children[index].textContent === '4+') {
                 const playedCardText = contanerBotCardsElm.children[index].textContent
                 discardCardElm.textContent = playedCardText
                 discardCardElm.style.color = contanerBotCardsElm.children[index].style.color
@@ -164,6 +177,7 @@ function playCard(event) {
                 botPlayedCard = true
                 break
             }
+
         }
         if (!botPlayedCard) {
             drawCards(1, "bot")
@@ -183,10 +197,35 @@ function UserColor(event) {
 
 }
 
+function findCommon() {
+    let listColor = []
+    for (let index = 0; index < contanerBotCardsElm.children.length; index++) {
+        listColor.push(contanerBotCardsElm.children[index].style.color)
+    }
+    console.log(listColor)
+    const red = listColor.filter(color => color.includes("red"))
+    console.log(red.length)
+    const green = listColor.filter(color => color.includes("green"))
+    console.log(green.length)
+    const blue = listColor.filter(color => color.includes("blue"))
+    console.log(blue.length)
+    const yellow = listColor.filter(color => color.includes("yellow"))
+    console.log(yellow.length)
 
+    const colorCounts = { red: red.length, green: green.length, blue: blue.length, yellow: yellow.length }
+    let mostCommonColor = "red"
+    if (colorCounts.green > colorCounts[mostCommonColor]) mostCommonColor = "green"
+    if (colorCounts.blue > colorCounts[mostCommonColor]) mostCommonColor = "blue"
+    if (colorCounts.yellow > colorCounts[mostCommonColor]) mostCommonColor = "yellow"
+    return mostCommonColor
+}
 
 drawCards(9, 'both')
+console.log(findCommon())
 createDiscardCard()
+
+
+
 
 
 
