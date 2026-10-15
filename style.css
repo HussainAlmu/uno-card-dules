@@ -6,6 +6,11 @@
     display: flex;
     gap: 2em;
     }
+    #user-card-contaner img,
+    #bot-card-contaner img{
+    width: 100px;
+    
+    }
     .pick-color-button{
     display: none;
     }

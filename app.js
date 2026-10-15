@@ -46,56 +46,74 @@ function drawCards(amount, side) {
 }
 
 function CardGen(contaner) {
-    const newCard = document.createElement("h1");
+    const newCard = document.createElement("img");
     const number = Math.floor(Math.random() * 14) + 1;
     if (number < 10) {
-        newCard.textContent = number
+        color = PickColor(newCard)
+        newCard.src = `image/${color}_${number}.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
-        PickColor(newCard)
-
+        newCard.textContent = number
+        newCard.style.color = color
         contaner.append(newCard);
     } else if (number === 10) {
-        newCard.textContent = "2+"
+        color = PickColor(newCard)
+        newCard.src = `image/${color}_draw_2.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
-        PickColor(newCard)
+        newCard.style.color = color
+        newCard.textContent = '2+'
         contaner.append(newCard);
     } else if (number === 11) {
-        newCard.textContent = "s"
+        color = PickColor(newCard)
+        newCard.src = `image/${color}_reverse.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
-        PickColor(newCard)
+       newCard.style.color = color
+         newCard.textContent = 's'
         contaner.append(newCard);
+
     } else if (number === 12) {
-        newCard.textContent = "⊙"
+        color = PickColor(newCard)
+        newCard.src = `image/${color}_skip.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
-        PickColor(newCard)
+        newCard.style.color = color
+        newCard.textContent = '⊙'
         contaner.append(newCard);
     }
     else if (number === 13) {
-        newCard.textContent = "4+"
+        color = PickColor(newCard)
+        newCard.src = `image/wild_draw_4.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
+        newCard.style.color = color
+        newCard.textContent = '4+'
         contaner.append(newCard);
     }
     else if (number === 14) {
-        newCard.textContent = "✦"
+        color = PickColor(newCard)
+        newCard.src = `image/wild_change_color.png`
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
+        newCard.style.color = color
+        newCard.textContent = '✦'
         contaner.append(newCard);
     }
     function PickColor(newCard) {
         let cardColor = Math.floor(Math.random() * 4) + 1
         if (cardColor === 1) {
             newCard.style.color = "blue";
+            return "blue"
         } else if (cardColor === 2) {
             newCard.style.color = "red";
+            return "red"
         } else if (cardColor === 3) {
             newCard.style.color = "green";
+            return "green"
         } else if (cardColor === 4) {
             newCard.style.color = "yellow";
+            return "yellow"
         }
     }
 }
@@ -186,6 +204,10 @@ function playCard(event) {
             playCard()
         }
     }
+}
+
+function renderCards() {
+
 }
 
 function UserColor(event) {
