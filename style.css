@@ -1,17 +1,102 @@
     #user-card-contaner {
       display: flex;
+      width: 50vw;
       gap: 0.3em;
     }
 
     #bot-card-contaner {
       display: flex;
+      width: 50vw;
       gap: 0.3em;
     }
 
     #user-card-contaner img,
     #bot-card-contaner img {
       width: 100px;
+      height: 150px;
+      object-fit: contain;
+      flex-shrink: 0;
+      transition: transform 0.2s ease-in-out;
+      animation: card-hover-reverse 0.2s ease-in-out;
+    }
 
+    #user-card-contaner img:hover,
+    #bot-card-contaner img:hover {
+      transform: translateY(-8px) scale(1.4);
+      z-index: 1;
+      animation: card-hover 0.2s ease-in-out;
+    }
+
+    @keyframes card-hover {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      65% {
+        transform: translateY(-10px) scale(1.45);
+      }
+      100% {
+        transform: translateY(-8px) scale(1.4);
+      }
+    }
+
+    @keyframes card-hover-reverse {
+      0% {
+        transform: translateY(-8px) scale(1.4);
+      }
+      35% {
+        transform: translateY(-10px) scale(1.45);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    #user-card-contaner:has(> img:nth-child(7)) img,
+    #bot-card-contaner:has(> img:nth-child(7)) img {
+      margin-right: calc((50vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(7)):not(:has(> img:nth-child(8))) img,
+    #bot-card-contaner:has(> img:nth-child(7)):not(:has(> img:nth-child(8))) img {
+      margin-right: calc((40vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(6)):not(:has(> img:nth-child(7))) img,
+    #bot-card-contaner:has(> img:nth-child(6)):not(:has(> img:nth-child(7))) img {
+      margin-right: calc((35vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(5)):not(:has(> img:nth-child(6))) img,
+    #bot-card-contaner:has(> img:nth-child(5)):not(:has(> img:nth-child(6))) img {
+      margin-right: calc((30vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(4)):not(:has(> img:nth-child(5))) img,
+    #bot-card-contaner:has(> img:nth-child(4)):not(:has(> img:nth-child(5))) img {
+      margin-right: calc((25vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(3)):not(:has(> img:nth-child(4))) img,
+    #bot-card-contaner:has(> img:nth-child(3)):not(:has(> img:nth-child(4))) img {
+      margin-right: calc((19vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(2)):not(:has(> img:nth-child(3))) img,
+    #bot-card-contaner:has(> img:nth-child(2)):not(:has(> img:nth-child(3))) img {
+      margin-right: calc((10vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
+    }
+
+    #user-card-contaner:has(> img:nth-child(1)):not(:has(> img:nth-child(2))) img,
+    #bot-card-contaner:has(> img:nth-child(1)):not(:has(> img:nth-child(2))) img {
+      margin-right: calc((10vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
+      transition: margin 0.3s ease;
     }
 
     .pick-color-button {
