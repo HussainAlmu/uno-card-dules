@@ -44,6 +44,7 @@ async function drawCards(amount, side) {
             await new Promise(resolve => setTimeout(resolve, 500));
         }
         isDrawingCards = false
+        canPlay()
     } else if (side === 'bot') {
         isDrawingCards = true
         for (let index = 0; index < amount; index++) {
@@ -173,6 +174,7 @@ function playCard(event) {
                 discardCardElm.src = event.target.src
             });
         }
+        canPlay()
     }
 
 
@@ -229,17 +231,25 @@ function playCard(event) {
             } else if (turn === "bot") {
                 playCard()
             }
+            canPlay()
         }, 800)
     }
 }
 
-function renderCards() {
+function canPlay() {
+    for (let i = 0; i < contanerUserCardsElm.children.length; i++) {
+        contanerUserCardsElm.children[i].style.filter = "";
+        if (!(contanerUserCardsElm.children[i].textContent === discardCardElm.textContent || contanerUserCardsElm.children[i].style.color === discardCardElm.style.color || contanerUserCardsElm.children[i].textContent === "4+" || contanerUserCardsElm.children[i].textContent === "✦")) {
+            contanerUserCardsElm.children[i].style.filter = "brightness(50%)";
 
+        }
+    }
 }
 
 function UserColor(event) {
     console.log(event.target.textContent)
     discardCardElm.style.color = event.target.textContent
+    canPlay()
     colorPickButtonElm.forEach((button) => {
         button.style.display = "none";
     });
@@ -272,6 +282,7 @@ function findCommon() {
 drawCards(9, 'both')
 console.log(findCommon())
 createDiscardCard()
+canPlay()
 
 
 
