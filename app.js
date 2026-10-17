@@ -2,6 +2,7 @@
 let UserCardsElm = []
 let turn
 let isDrawingCards = false
+let win
 /*------------------------ Cached Element References ------------------------*/
 const contanerUserCardsElm = document.querySelector("#user-card-contaner")
 const discardCardElm = document.querySelector("#DiscardCard")
@@ -9,6 +10,8 @@ const drawCardButtonElm = document.querySelector("#draw-card")
 const contanerBotCardsElm = document.querySelector("#bot-card-contaner")
 const contanerMiddleElm = document.querySelector("#middle-contaner")
 const colorPickButtonElm = document.querySelectorAll(".pick-color-button")
+const winnerElm = document.querySelector("#winner")
+
 /*-------------------------------- Functions --------------------------------*/
 function PickColor(newCard) {
     let cardColor = Math.floor(Math.random() * 4) + 1
@@ -24,6 +27,7 @@ function PickColor(newCard) {
 }
 
 async function drawCards(amount, side) {
+    if (side !== 'both' && (contanerUserCardsElm.children.length === 0 || contanerBotCardsElm.children.length === 0)) return
     if (side === 'both') {
         for (let index = 0; index < amount; index++) {
             CardGen(contanerUserCardsElm)
@@ -45,6 +49,8 @@ async function drawCards(amount, side) {
         }
         isDrawingCards = false
         canPlay()
+        didWin()
+        hideColorPickButtons()
     } else if (side === 'bot') {
         isDrawingCards = true
         for (let index = 0; index < amount; index++) {
@@ -52,6 +58,7 @@ async function drawCards(amount, side) {
             await new Promise(resolve => setTimeout(resolve, 500));
         }
         isDrawingCards = false
+        didWin()
     }
 }
 
@@ -155,6 +162,7 @@ function playCard(event) {
                 drawCards(2, 'bot')
                 turn = 'user'
             }
+            hideColorPickButtons()
         }
         if (event.target.textContent === '✦') {
             event.target.remove()
@@ -175,12 +183,13 @@ function playCard(event) {
             });
         }
         canPlay()
+        didWin()
     }
 
 
 
     let botPlayedCard = false
-    if (turn === 'bot') {
+    if (turn === 'bot' && contanerUserCardsElm.children.length > 0 && contanerBotCardsElm.children.length > 0) {
         drawCardButtonElm.disabled = true
         contanerUserCardsElm.style.pointerEvents = "none"
         setTimeout(() => {
@@ -230,8 +239,10 @@ function playCard(event) {
                 turn = "user"
             } else if (turn === "bot") {
                 playCard()
+                didWin()
             }
             canPlay()
+            didWin()
         }, 800)
     }
 }
@@ -250,10 +261,13 @@ function UserColor(event) {
     console.log(event.target.textContent)
     discardCardElm.style.color = event.target.textContent
     canPlay()
+    hideColorPickButtons()
+}
+
+function hideColorPickButtons() {
     colorPickButtonElm.forEach((button) => {
         button.style.display = "none";
     });
-
 }
 
 function findCommon() {
@@ -279,10 +293,29 @@ function findCommon() {
     return mostCommonColor
 }
 
+function didWin() {
+    if (contanerUserCardsElm.children.length === 0) {
+        discardCardElm.style.display = 'none'
+        winnerElm.textContent = "You Win"
+        drawCardButtonElm.disabled = true
+        contanerUserCardsElm.style.pointerEvents = "none"
+        return
+
+    }
+    if (contanerBotCardsElm.children.length === 0) {
+        discardCardElm.style.display = 'none'
+        winnerElm.textContent = "You Lose"
+        drawCardButtonElm.disabled = true
+        contanerUserCardsElm.style.pointerEvents = "none"
+        return
+    }
+}
+
 drawCards(9, 'both')
 console.log(findCommon())
 createDiscardCard()
 canPlay()
+didWin()
 
 
 
