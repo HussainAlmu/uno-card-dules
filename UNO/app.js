@@ -31,7 +31,7 @@ function PickColor(newCard) {
 }
 
 async function drawCards(amount, side) {
-    if (side !== 'both' && (contanerUserCardsElm.children.length === 0 || contanerBotCardsElm.children.length === 0)) return
+    if (side !== 'both' && (contanerUserCardsElm.children.length === 0 || contanerBotCardsElm.children.length === 0) && isUno === turn) return
     if (side === 'both') {
         for (let index = 0; index < amount; index++) {
             CardGen(contanerUserCardsElm)
@@ -299,21 +299,28 @@ function findCommon() {
 
 function didWin() {
 
-    if (contanerUserCardsElm.children.length > 1){
-        isUno = false
-    }
+
 
     if (contanerUserCardsElm.children.length === 1) {
-        unoButtonElm.style.disabled = 'block'
-        
+        unoButtonElm.style.display = 'block'
+
+    }
+    if (contanerUserCardsElm.children.length > 1) {
+        isUno = false
+        unoButtonElm.style.display = 'none'
     }
 
     if (contanerUserCardsElm.children.length === 0) {
+        if (!isUno) {
+            drawCards(2, 'user')
+        } else {
         discardCardElm.style.display = 'none'
         playAgainElm.style.display = 'block'
         winnerElm.textContent = "You Win"
         drawCardButtonElm.disabled = true
         contanerUserCardsElm.style.pointerEvents = "none"
+        }
+        
         return
 
     }
@@ -326,14 +333,17 @@ function didWin() {
         return
     }
     console.log(isUno)
+    console.log(contanerUserCardsElm.children.length)
 }
 
-function uno(){
+function uno() {
     isUno = true
+    console.log(isUno)
+    unoButtonElm.style.display = 'none'
 }
 
-function playAgain(){
-UserCardsElm = []
+function playAgain() {
+    UserCardsElm = []
     turn = undefined
     isDrawingCards = false
     win = undefined
@@ -390,3 +400,5 @@ colorPickButtonElm.forEach((button) => {
 });
 
 playAgainElm.addEventListener('click', playAgain)
+
+unoButtonElm.addEventListener("click", uno)

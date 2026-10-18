@@ -223,6 +223,7 @@ body {
   border: 0;
   box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0 black, -0.3571em 0 black, 0 0.7143em #00000038, 0.3571em 0.3571em #00000038, -0.3571em 0.3571em #00000038, inset 0 0.3571em #ffffff36;
   cursor: pointer;
+    margin-left: auto;
 }
 
 #draw-card:active {
