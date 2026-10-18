@@ -3,6 +3,7 @@ let UserCardsElm = []
 let turn
 let isDrawingCards = false
 let win
+let isUno = false
 /*------------------------ Cached Element References ------------------------*/
 const contanerUserCardsElm = document.querySelector("#user-card-contaner")
 const discardCardElm = document.querySelector("#DiscardCard")
@@ -11,6 +12,9 @@ const contanerBotCardsElm = document.querySelector("#bot-card-contaner")
 const contanerMiddleElm = document.querySelector("#middle-contaner")
 const colorPickButtonElm = document.querySelectorAll(".pick-color-button")
 const winnerElm = document.querySelector("#winner")
+const playAgainElm = document.querySelector("#play-again")
+const unoButtonElm = document.querySelector("#uno")
+console.log(unoButtonElm)
 
 /*-------------------------------- Functions --------------------------------*/
 function PickColor(newCard) {
@@ -294,8 +298,19 @@ function findCommon() {
 }
 
 function didWin() {
+
+    if (contanerUserCardsElm.children.length > 1){
+        isUno = false
+    }
+
+    if (contanerUserCardsElm.children.length === 1) {
+        unoButtonElm.style.disabled = 'block'
+        
+    }
+
     if (contanerUserCardsElm.children.length === 0) {
         discardCardElm.style.display = 'none'
+        playAgainElm.style.display = 'block'
         winnerElm.textContent = "You Win"
         drawCardButtonElm.disabled = true
         contanerUserCardsElm.style.pointerEvents = "none"
@@ -304,11 +319,38 @@ function didWin() {
     }
     if (contanerBotCardsElm.children.length === 0) {
         discardCardElm.style.display = 'none'
+        playAgainElm.style.display = 'block'
         winnerElm.textContent = "You Lose"
         drawCardButtonElm.disabled = true
         contanerUserCardsElm.style.pointerEvents = "none"
         return
     }
+    console.log(isUno)
+}
+
+function uno(){
+    isUno = true
+}
+
+function playAgain(){
+UserCardsElm = []
+    turn = undefined
+    isDrawingCards = false
+    win = undefined
+
+    contanerUserCardsElm.innerHTML = ''
+    contanerBotCardsElm.innerHTML = ''
+    contanerUserCardsElm.style.pointerEvents = 'auto'
+    drawCardButtonElm.disabled = false
+    discardCardElm.style.display = ''
+    winnerElm.textContent = ''
+    playAgainElm.style.display = 'none'
+    hideColorPickButtons()
+
+    drawCards(9, 'both')
+    createDiscardCard()
+    canPlay()
+    console.log("hi")
 }
 
 drawCards(9, 'both')
@@ -346,3 +388,5 @@ colorPickButtonElm.forEach((button) => {
         playCard(event);
     });
 });
+
+playAgainElm.addEventListener('click', playAgain)

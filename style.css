@@ -6,6 +6,7 @@ body {
   font-style: normal;
 }
 
+#user-card-container,
 #user-card-contaner {
   display: flex;
   flex-direction: row;
@@ -14,12 +15,13 @@ body {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 3rem;
+  bottom: 1rem;
   left: 0;
   right: 0;
 
 }
 
+#bot-card-container,
 #bot-card-contaner {
   display: flex;
   flex-direction: row;
@@ -31,7 +33,9 @@ body {
   min-height: 10em;
 }
 
+#user-card-container img,
 #user-card-contaner img,
+#bot-card-container img,
 #bot-card-contaner img {
   width: 7em;
 
@@ -42,7 +46,9 @@ body {
   position: relative;
 }
 
+#user-card-container img:hover,
 #user-card-contaner img:hover,
+#bot-card-container img:hover,
 #bot-card-contaner img:hover {
   transform: translateY(-8px) scale(1.4);
   z-index: 1;
@@ -77,56 +83,72 @@ body {
   }
 }
 
+#user-card-container:has(> img:nth-child(7)) img,
 #user-card-contaner:has(> img:nth-child(7)) img,
+#bot-card-container:has(> img:nth-child(7)) img,
 #bot-card-contaner:has(> img:nth-child(7)) img {
   margin-right: calc((50vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(7)):not(:has(> img:nth-child(8))) img,
 #user-card-contaner:has(> img:nth-child(7)):not(:has(> img:nth-child(8))) img,
+#bot-card-container:has(> img:nth-child(7)):not(:has(> img:nth-child(8))) img,
 #bot-card-contaner:has(> img:nth-child(7)):not(:has(> img:nth-child(8))) img {
   margin-right: calc((40vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(6)):not(:has(> img:nth-child(7))) img,
 #user-card-contaner:has(> img:nth-child(6)):not(:has(> img:nth-child(7))) img,
+#bot-card-container:has(> img:nth-child(6)):not(:has(> img:nth-child(7))) img,
 #bot-card-contaner:has(> img:nth-child(6)):not(:has(> img:nth-child(7))) img {
   margin-right: calc((35vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(5)):not(:has(> img:nth-child(6))) img,
 #user-card-contaner:has(> img:nth-child(5)):not(:has(> img:nth-child(6))) img,
+#bot-card-container:has(> img:nth-child(5)):not(:has(> img:nth-child(6))) img,
 #bot-card-contaner:has(> img:nth-child(5)):not(:has(> img:nth-child(6))) img {
   margin-right: calc((30vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(4)):not(:has(> img:nth-child(5))) img,
 #user-card-contaner:has(> img:nth-child(4)):not(:has(> img:nth-child(5))) img,
+#bot-card-container:has(> img:nth-child(4)):not(:has(> img:nth-child(5))) img,
 #bot-card-contaner:has(> img:nth-child(4)):not(:has(> img:nth-child(5))) img {
   margin-right: calc((25vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(3)):not(:has(> img:nth-child(4))) img,
 #user-card-contaner:has(> img:nth-child(3)):not(:has(> img:nth-child(4))) img,
+#bot-card-container:has(> img:nth-child(3)):not(:has(> img:nth-child(4))) img,
 #bot-card-contaner:has(> img:nth-child(3)):not(:has(> img:nth-child(4))) img {
   margin-right: calc((19vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(2)):not(:has(> img:nth-child(3))) img,
 #user-card-contaner:has(> img:nth-child(2)):not(:has(> img:nth-child(3))) img,
+#bot-card-container:has(> img:nth-child(2)):not(:has(> img:nth-child(3))) img,
 #bot-card-contaner:has(> img:nth-child(2)):not(:has(> img:nth-child(3))) img {
   margin-right: calc((10vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
+#user-card-container:has(> img:nth-child(1)):not(:has(> img:nth-child(2))) img,
 #user-card-contaner:has(> img:nth-child(1)):not(:has(> img:nth-child(2))) img,
+#bot-card-container:has(> img:nth-child(1)):not(:has(> img:nth-child(2))) img,
 #bot-card-contaner:has(> img:nth-child(1)):not(:has(> img:nth-child(2))) img {
   margin-right: calc((10vw - sibling-count() * 100px - (sibling-count() - 1) * 0.3em) / sibling-count());
   transition: margin 0.3s ease;
 }
 
 .pick-color-button {
-  display: none; 
+  display: none;
   color: #fff;
   background-color: #ff0000;
   padding: 0.5em 1em;
@@ -159,6 +181,7 @@ body {
 }
 
 
+#color-container,
 #color-contaner {
   display: flex;
   flex-wrap: nowrap;
@@ -174,6 +197,7 @@ body {
   width: 7em;
 }
 
+#middle-container,
 #middle-contaner {
   position: relative;
   z-index: 2;
@@ -206,8 +230,50 @@ body {
   box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
 }
 
+#button-container,
 #button-contaner {
   display: flex;
-  justify-content: flex-end;
-  /* Pushes the button to the right */
+  justify-content: space-between;
+}
+
+#play-again,
+#play-again {
+  display: none;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  background-color: #000000;
+  padding: 1.0714em 2.8571em;
+  margin: 0.7143em;
+  font-size: 0.875em;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0 black, -0.3571em 0 black, 0 0.7143em #00000038, 0.3571em 0.3571em #00000038, -0.3571em 0.3571em #00000038, inset 0 0.3571em #ffffff36;
+  cursor: pointer;
+}
+
+#play-again:active,
+#play-again:active {
+  transform: translateY(0.3571em);
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
+}
+
+#uno {
+  display: none;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  background-color: #00ff22;
+  padding: 1.0714em 2.8571em;
+  margin: 0.7143em;
+  font-size: 0.875em;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0 black, -0.3571em 0 black, 0 0.7143em #00000038, 0.3571em 0.3571em #00000038, -0.3571em 0.3571em #00000038, inset 0 0.3571em #ffffff36;
+  cursor: pointer;
+}
+
+#uno:active {
+  transform: translateY(0.3571em);
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
 }
