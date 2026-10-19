@@ -69,9 +69,14 @@ async function drawCards(amount, side) {
 function CardGen(contaner) {
     const newCard = document.createElement("img");
     const number = Math.floor(Math.random() * 14) + 1;
+
     if (number < 10) {
         color = PickColor(newCard)
-        newCard.src = `image/${color}_${number}.png`
+        if (contaner === contanerUserCardsElm) {
+            newCard.src = `image/${color}_${number}.png`
+        } else {
+            newCard.src = `image/wild_change_color.png`
+        }
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
         newCard.textContent = number
@@ -79,7 +84,12 @@ function CardGen(contaner) {
         contaner.append(newCard);
     } else if (number === 10) {
         color = PickColor(newCard)
-        newCard.src = `image/${color}_draw_2.png`
+
+        if (contaner === contanerUserCardsElm) {
+            newCard.src = `image/${color}_draw_2.png`
+        } else {
+            newCard.src = `image/wild_change_color.png`
+        }
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
         newCard.style.color = color
@@ -87,7 +97,11 @@ function CardGen(contaner) {
         contaner.append(newCard);
     } else if (number === 11) {
         color = PickColor(newCard)
-        newCard.src = `image/${color}_reverse.png`
+        if (contaner === contanerUserCardsElm) {
+            newCard.src = `image/${color}_reverse.png`
+        } else {
+            newCard.src = `image/wild_change_color.png`
+        }
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
         newCard.style.color = color
@@ -96,7 +110,12 @@ function CardGen(contaner) {
 
     } else if (number === 12) {
         color = PickColor(newCard)
-        newCard.src = `image/${color}_skip.png`
+        if (contaner === contanerUserCardsElm) {
+            newCard.src = `image/${color}_skip.png`
+        } else {
+            newCard.src = `image/wild_change_color.png`
+        }
+
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
         newCard.style.color = color
@@ -105,7 +124,12 @@ function CardGen(contaner) {
     }
     else if (number === 13) {
         color = PickColor(newCard)
-        newCard.src = `image/wild_draw_4.png`
+
+        if (contaner === contanerUserCardsElm) {
+            newCard.src = `image/wild_draw_4.png`
+        } else {
+            newCard.src = `image/wild_change_color.png`
+        }
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
         newCard.style.color = color
@@ -114,7 +138,11 @@ function CardGen(contaner) {
     }
     else if (number === 14) {
         color = PickColor(newCard)
-        newCard.src = `image/wild_change_color.png`
+        if (contaner === contanerUserCardsElm) {
+            newCard.src = `image/wild_change_color.png`
+        } else {
+            newCard.src = `image/wild_change_color.png`
+        }
         newCard.classList.add('user-card');
         UserCardsElm.push(newCard)
         newCard.style.color = color
@@ -204,7 +232,7 @@ function playCard(event) {
 
                 if (botCard.textContent === '4+') {
                     discardCardElm.textContent = '4+'
-                    discardCardElm.src = botCard.src
+                    discardCardElm.src = 'image/wild_draw_4.png'
                     discardCardElm.style.color = findCommon()
                     botCard.remove()
                     drawCards(4, 'user')
@@ -215,7 +243,7 @@ function playCard(event) {
 
                 if (botCard.textContent === '✦') {
                     discardCardElm.textContent = '✦'
-                    discardCardElm.src = botCard.src
+                    discardCardElm.src = 'image/wild_change_color.png'
                     botCard.remove()
                     discardCardElm.style.color = findCommon()
                     turn = 'user'
@@ -227,7 +255,16 @@ function playCard(event) {
                     const playedCardText = botCard.textContent
                     discardCardElm.textContent = playedCardText
                     discardCardElm.style.color = botCard.style.color
-                    discardCardElm.src = botCard.src
+                    const color = botCard.style.color
+                    if (playedCardText === '2+') {
+                        discardCardElm.src = `image/${color}_draw_2.png`
+                    } else if (playedCardText === 's') {
+                        discardCardElm.src = `image/${color}_reverse.png`
+                    } else if (playedCardText === '⊙') {
+                        discardCardElm.src = `image/${color}_skip.png`
+                    } else {
+                        discardCardElm.src = `image/${color}_${playedCardText}.png`
+                    }
                     botCard.remove()
                     turn = playedCardText === "s" || playedCardText === "⊙" ? "bot" : "user"
                     if (playedCardText === '2+') {
@@ -314,13 +351,13 @@ function didWin() {
         if (!isUno) {
             drawCards(2, 'user')
         } else {
-        discardCardElm.style.display = 'none'
-        playAgainElm.style.display = 'block'
-        winnerElm.textContent = "You Win"
-        drawCardButtonElm.disabled = true
-        contanerUserCardsElm.style.pointerEvents = "none"
+            discardCardElm.style.display = 'none'
+            playAgainElm.style.display = 'block'
+            winnerElm.textContent = "You Win"
+            drawCardButtonElm.disabled = true
+            contanerUserCardsElm.style.pointerEvents = "none"
         }
-        
+
         return
 
     }
