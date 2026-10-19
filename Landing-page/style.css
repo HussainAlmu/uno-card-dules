@@ -5,13 +5,20 @@ body {
     font-family: 'Press Start 2P', monospace;
     color: #fff;
     background-color: #061d49;
-    background-image: url('image.png');
+    background-image: url('imageblack.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     font-synthesis: none;
+    transition: color 0.3s ease, background-image 0.3s ease, background-color 0.3s ease;
 
+}
+
+body[data-theme="light"] {
+    color: #061d49;
+    background-image: url('image.png');
+    transition: color 0.3s ease, background-image 0.3s ease, background-color 0.3s ease;
 }
 
 #top-contaner {
@@ -33,10 +40,27 @@ body {
         12px 12px 0 #061d49;
 }
 
+body[data-theme="light"] #top-contaner h1 {
+    color: #061d49;
+    text-shadow:
+        4px 4px 0 #a94316,
+        8px 8px 0 #e98b19,
+        12px 12px 0 #fff4b8;
+}
+
+
+
 #top-contaner p {
     color: #E98B19;
     text-align: center;
 }
+
+body[data-theme="light"] #top-contaner p {
+    color: #f44a01;
+
+}
+
+
 
 #game-button {
     font-family: 'Press Start 2P', monospace;
@@ -86,6 +110,57 @@ body {
     box-shadow:
         -4px 4px 0 #000,
         0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+#mode {
+    font-family: 'Press Start 2P', monospace;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    padding: 1em 1.5em;
+    color: #FFF5CF;
+    background: #0A3578;
+    border: 4px solid #000;
+    box-shadow:
+        4px 0 0 #0A3578,
+        -4px 0 0 #0A3578,
+        0 4px 0 #0A3578,
+        0 8px 0 rgba(0, 0, 0, 0.65);
+    text-shadow: 2px 2px 0 #061d49;
+    transition: transform 80ms steps(2), box-shadow 80ms steps(2);
+    text-shadow:
+        4px 4px 0 #e98b19,
+        8px 8px 0 #a94316,
+        12px 12px 0 #061d49;
+}
+
+#mode:active {
+    transform: translateY(4px);
+    box-shadow:
+        4px 0 0 #0A3578,
+        -4px 0 0 #0A3578,
+        0 2px 0 #0A3578,
+        0 4px 0 rgba(0, 0, 0, 0.65);
+}
+
+body[data-theme="light"] #mode {
+    color: #061d49;
+    background: #fff5cf;
+    border-color: #061d49;
+    box-shadow:
+        4px 0 0 #e98b19,
+        -4px 0 0 #e98b19,
+        0 4px 0 #e98b19,
+        0 8px 0 rgba(6, 29, 73, 0.45);
+    text-shadow: 2px 2px 0 rgba(233, 139, 25, 0.45);
+}
+
+body[data-theme="light"] #mode:active {
+    box-shadow:
+        4px 0 0 #e98b19,
+        -4px 0 0 #e98b19,
+        0 2px 0 #e98b19,
+        0 4px 0 rgba(6, 29, 73, 0.45);
 }
 
 #deck-button {
@@ -149,7 +224,7 @@ body {
 
 
 #chose {
-        display: flex;
+    display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: center;
@@ -157,4 +232,9 @@ body {
     color: #93ACD1;
     font-size: 0.7em;
     margin-top: 5em;
+}
+
+body[data-theme="light"] #chose {
+    color: #061d49;
+
 }
