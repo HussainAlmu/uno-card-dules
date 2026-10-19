@@ -14,6 +14,8 @@ const currentGoleElm = document.querySelector("#current-goal")
 const goleReachedElm = document.querySelector("#goals-reached")
 const playAgainElm = document.querySelector("#play-again")
 const lederbordElm = document.querySelector('.leaderboard')
+document.body.dataset.theme = localStorage.getItem("theme") || "dark";
+
 
 
 let wins = 0
@@ -127,7 +129,7 @@ function showGameOver() {
         total.style.display = 'none'
         lederbordElm.style.display = 'block'
     }, 1000)
-    addPlayer("YOU",maxPoints)
+    addPlayer("YOU", maxPoints)
 
     return true
 }
@@ -247,7 +249,7 @@ function addPlayer(name, score) {
     players.forEach(player => lederbordElm.appendChild(player));
 }
 
-function highScore(){
+function highScore() {
     const currentPoints = Number(point.textContent)
     if (currentPoints > maxPoints) {
         maxPoints = currentPoints

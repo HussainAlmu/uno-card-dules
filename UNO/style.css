@@ -14,6 +14,11 @@ body {
   color: white;
 }
 
+body[data-theme="light"] {
+    color: #000000;
+    background-image: url('image.png');
+}
+
 #user-card-container,
 #user-card-contaner {
   display: flex;

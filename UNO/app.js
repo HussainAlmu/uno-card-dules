@@ -4,6 +4,7 @@ let turn
 let isDrawingCards = false
 let win
 let isUno = false
+document.body.dataset.theme = localStorage.getItem("theme") || "dark";
 /*------------------------ Cached Element References ------------------------*/
 const contanerUserCardsElm = document.querySelector("#user-card-contaner")
 const discardCardElm = document.querySelector("#DiscardCard")

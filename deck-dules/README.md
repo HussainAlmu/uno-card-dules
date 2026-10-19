@@ -13,7 +13,7 @@ Consecutive wins increase your winning streak, which resets when you lose. The g
 Each player starts with a hand of cards. Take turns matching the top card by color, number, or symbol; if you cannot play, draw a card. Action cards include **Skip**, **Reverse**, **Draw Two**, **Wild**, and **Wild Draw Four**. Say “UNO” when you have one card left. The first player to play all their cards wins.
 
 
-Dark and Light mode
+
 Different difficulty levels
 vs computer and vs human
 pause resume
