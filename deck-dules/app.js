@@ -10,10 +10,15 @@ const imgCardElm = document.querySelector("#card-img");
 const imgBotCardElm = document.querySelector("#botCard-img");
 const matchTextElm = document.querySelector("#match-result");
 const streakElm = document.querySelector('#streak')
+const currentGoleElm = document.querySelector("#current-goal")
+const goleReachedElm = document.querySelector("#goals-reached")
+const playAgainElm = document.querySelector("#play-again")
+
 
 let wins = 0
 let cards = []
 let botCard = []
+let goal = 0
 
 function limitInputToPoints() {
     const points = Number(point.textContent)
@@ -107,8 +112,12 @@ window.addEventListener("load", botSumTotal)
 
 
 function showGameOver() {
+    playAgainElm.style.display = 'none'
     if (point.textContent !== '0') return false
     matchTextElm.textContent = 'game over'
+    hitButtonElement.style.display = 'none'
+    stand.style.display = 'none'
+    playAgainElm.style.display = 'block'
     return true
 }
 
@@ -126,6 +135,7 @@ function hitFun() {
     if (Number(total.textContent) > 21) {
         matchTextElm.textContent = 'loss'
         point.textContent = Number(point.textContent) - Number(input.value)
+        goals()
         limitInputToPoints()
         if (showGameOver()) return
         setTimeout(firstCards, 1000)
@@ -149,6 +159,7 @@ async function standFun() {
     if (Number(botTotal.textContent) > 21) {
         matchTextElm.textContent = 'win'
         point.textContent = Number(point.textContent) + Number(input.value) * 2
+        goals()
         limitInputToPoints()
         setTimeout(() => {
             matchTextElm.textContent = ''
@@ -171,6 +182,7 @@ async function standFun() {
     if (Number(botTotal.textContent) < Number(total.textContent)) {
         matchTextElm.textContent = 'loss'
         point.textContent = Number(point.textContent) - Number(input.value)
+        goals()
         limitInputToPoints()
         if (showGameOver()) return
         setTimeout(() => {
@@ -183,6 +195,7 @@ async function standFun() {
 
     matchTextElm.textContent = 'loss'
     point.textContent = Number(point.textContent) - Number(input.value)
+    goals()
     limitInputToPoints()
     if (showGameOver()) return
     setTimeout(() => {
@@ -193,8 +206,20 @@ async function standFun() {
 
 }
 
+function goals() {
+    if (Number(point.textContent) >= Number(currentGoleElm.textContent)) {
+        goleReachedElm.textContent = Number(goleReachedElm.textContent) + 1
+        currentGoleElm.textContent = Number(point.textContent) * 2.3
+    }
+}
+
+function playAgain() {
+    window.location.reload()
+}
+
 stand.addEventListener('click', standFun)
 hitButtonElement.addEventListener('click', hitFun)
+playAgainElm.addEventListener('click', playAgain)
 
 
 window.addEventListener('keydown', function (event) {
@@ -204,4 +229,3 @@ window.addEventListener('keydown', function (event) {
 window.addEventListener('keydown', function (event) {
     if (event.key === 'ArrowRight') standFun()
 });
-

@@ -143,13 +143,14 @@ body {
     font-size: 1em;
     margin: 0;
     padding: 0;
-     margin-left: 4em;
+    margin-left: 4em;
 }
-#streek-text{
-        font-size: 1em;
+
+#streek-text {
+    font-size: 1em;
     margin: 0;
     padding: 0;
-     margin-left: 4em;
+    margin-left: 4em;
 }
 
 #point-board h1,
@@ -206,6 +207,24 @@ body {
     box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, inset 0px 5px #00000038;
 }
 
+#play-again {
+    display: none;
+    color: #fff;
+    background-color: #010000;
+    padding: 15px 40px 15px 40px;
+    margin: 10px;
+    font-size: 14px;
+    font-family: "Press Start 2P", system-ui;
+    border: 0;
+    box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, 0px 10px #00000038, 5px 5px #00000038, -5px 5px #00000038, inset 0px 5px #ffffff36;
+    cursor: pointer;
+}
+
+#play-agian:active {
+    transform: translateY(5px);
+    box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, inset 0px 5px #00000038;
+}
+
 #input {
     padding: 12px 16px;
     background-color: #1a1040;
@@ -247,14 +266,26 @@ input:focus {
     align-items: center;
 }
 
-#current-goal {
-     display: flex;
-     font-size: 1em;
-     margin-left: 4em;
+#current-goal-text {
+    display: flex;
+    font-size: 1em;
+    margin-left: 4em;
 }
 
- #goals-reached{    
-     display:flex;
-      font-size: 1em;
-      margin-right: 4em;
- }
+#goals-reached-text {
+    display: flex;
+    font-size: 1em;
+    margin-right: 4em;
+}
+
+#current-goal {
+    display: flex;
+    font-size: 1em;
+    margin-left: 1em;
+}
+
+#goals-reached {
+    display: flex;
+    font-size: 1em;
+    margin-left: 1em;
+}
