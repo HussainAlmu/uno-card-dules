@@ -13,12 +13,14 @@ const streakElm = document.querySelector('#streak')
 const currentGoleElm = document.querySelector("#current-goal")
 const goleReachedElm = document.querySelector("#goals-reached")
 const playAgainElm = document.querySelector("#play-again")
+const lederbordElm = document.querySelector('.leaderboard')
 
 
 let wins = 0
 let cards = []
 let botCard = []
 let goal = 0
+let maxPoints = 0
 
 function limitInputToPoints() {
     const points = Number(point.textContent)
@@ -115,9 +117,18 @@ function showGameOver() {
     playAgainElm.style.display = 'none'
     if (point.textContent !== '0') return false
     matchTextElm.textContent = 'game over'
-    hitButtonElement.style.display = 'none'
-    stand.style.display = 'none'
-    playAgainElm.style.display = 'block'
+    setTimeout(() => {
+        hitButtonElement.style.display = 'none'
+        stand.style.display = 'none'
+        playAgainElm.style.display = 'block'
+        imgCardElm.style.display = "none"
+        imgBotCardElm.style.display = "none"
+        botTotal.style.display = 'none'
+        total.style.display = 'none'
+        lederbordElm.style.display = 'block'
+    }, 1000)
+    addPlayer("YOU",maxPoints)
+
     return true
 }
 
@@ -135,6 +146,7 @@ function hitFun() {
     if (Number(total.textContent) > 21) {
         matchTextElm.textContent = 'loss'
         point.textContent = Number(point.textContent) - Number(input.value)
+        highScore()
         goals()
         limitInputToPoints()
         if (showGameOver()) return
@@ -159,6 +171,7 @@ async function standFun() {
     if (Number(botTotal.textContent) > 21) {
         matchTextElm.textContent = 'win'
         point.textContent = Number(point.textContent) + Number(input.value) * 2
+        highScore()
         goals()
         limitInputToPoints()
         setTimeout(() => {
@@ -182,6 +195,7 @@ async function standFun() {
     if (Number(botTotal.textContent) < Number(total.textContent)) {
         matchTextElm.textContent = 'loss'
         point.textContent = Number(point.textContent) - Number(input.value)
+        highScore()
         goals()
         limitInputToPoints()
         if (showGameOver()) return
@@ -195,6 +209,7 @@ async function standFun() {
 
     matchTextElm.textContent = 'loss'
     point.textContent = Number(point.textContent) - Number(input.value)
+    highScore()
     goals()
     limitInputToPoints()
     if (showGameOver()) return
@@ -216,6 +231,39 @@ function goals() {
 function playAgain() {
     window.location.reload()
 }
+
+function addPlayer(name, score) {
+    const li = document.createElement("li");
+    li.innerHTML = `${name} - <span class="pScore">${score}</span>`;
+    lederbordElm.appendChild(li);
+
+    const players = Array.from(lederbordElm.children);
+    players.sort((a, b) => {
+        const scoreA = Number(a.querySelector(".pScore")?.textContent ?? 0);
+        const scoreB = Number(b.querySelector(".pScore")?.textContent ?? 0);
+
+        return scoreB - scoreA;
+    });
+    players.forEach(player => lederbordElm.appendChild(player));
+}
+
+function highScore(){
+    const currentPoints = Number(point.textContent)
+    if (currentPoints > maxPoints) {
+        maxPoints = currentPoints
+        console.log(maxPoints)
+    }
+}
+
+
+addPlayer("zaid", 500000);
+addPlayer("Amal", 150000);
+addPlayer("BudgetRadiant", 19800);
+addPlayer("BetterThanU", 7500);
+addPlayer("player 1", 6200);
+addPlayer("MrPVPKiller", 5000);
+addPlayer("Innovision", 500);
+addPlayer("Styxx", 300);
 
 stand.addEventListener('click', standFun)
 hitButtonElement.addEventListener('click', hitFun)

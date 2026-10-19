@@ -5,7 +5,7 @@ body {
     font-weight: 400;
     font-style: normal;
     margin: 0;
-    background-image: url("background.png");
+    background-image: url("image.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -288,4 +288,22 @@ input:focus {
     display: flex;
     font-size: 1em;
     margin-left: 1em;
+}
+
+#middle-contaner {
+    min-height: 70vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaderboard {
+    display: none;
+    color: white;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    line-height: 3;
 }
