@@ -17,4 +17,14 @@ Each player starts with a hand of cards. Take turns matching the top card by col
 Different difficulty levels
 vs computer and vs human
 pause resume
+
+
+
+High Score
+Dark and Light mode
+Different difficulty levels
+vs computer and vs human
+leaderboard
+pause resume
 sound (music or sound effects)
+Animation

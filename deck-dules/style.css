@@ -16,7 +16,6 @@ body {
 }
 
 body[data-theme="light"] {
-    color: #000000;
     background-image: url('image.png');
 }
 
@@ -44,6 +43,7 @@ body[data-theme="light"] {
     align-items: center;
     font-size: 2em;
     margin: 0px 0px 1em 0px;
+    padding-bottom: 0.5em;
 
 }
 
@@ -63,6 +63,7 @@ body[data-theme="light"] {
     justify-content: center;
     align-items: center;
     gap: 12px;
+    margin: 0;
 }
 
 #card-img img {
@@ -70,6 +71,7 @@ body[data-theme="light"] {
     height: auto;
     border-radius: 11px;
     animation: float 3s ease-in-out infinite;
+
 }
 
 #botCard-img {
@@ -78,7 +80,7 @@ body[data-theme="light"] {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin: 0px 0px 0px 0px;
+    margin: -1em 0px 0px 0px;
     padding: 0px 0px 20px 0px;
 }
 
@@ -144,18 +146,15 @@ body[data-theme="light"] {
 }
 
 #streak,
-#streak h2 {
-    font-size: 1em;
-    margin: 0;
-    padding: 0;
-    margin-left: 4em;
-}
-
+#streak h2,
 #streek-text {
     font-size: 1em;
     margin: 0;
-    padding: 0;
+    padding: 5px 8px;
     margin-left: 4em;
+    text-shadow: 2px 2px 2px #000;
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid #d99a43;
 }
 
 #point-board h1,
@@ -262,39 +261,50 @@ input:focus {
     box-shadow: 4px 4px 0px #0b061d, inset -2px -2px 0px rgba(0, 0, 0, 0.3);
 }
 
+
 #goals {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-content: baseline;
     justify-content: space-between;
     align-items: center;
+    padding: 8px 16px;
 }
 
-#current-goal-text {
-    display: flex;
-    font-size: 1em;
-    margin-left: 4em;
-}
-
-#goals-reached-text {
-    display: flex;
-    font-size: 1em;
-    margin-right: 4em;
-}
-
-#current-goal {
-    display: flex;
-    font-size: 1em;
-    margin-left: 1em;
-}
-
+#current-goal-text,
+#goals-reached-text,
+#current-goal,
 #goals-reached {
     display: flex;
     font-size: 1em;
+    color: white;
+    text-shadow: 2px 2px 2px #000;
+}
+
+#current-goal-text,
+#current-goal {
     margin-left: 1em;
 }
 
+#goals-reached-text,
+#goals-reached {
+    margin-right: 1em;
+}
+
+#goals-reached {
+    margin-left: 1em;
+}
+
+/* Subtle pixel-game panels */
+#current-goal-text,
+#goals-reached-text {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 5px 8px;
+    border-bottom: 2px solid #d99a43;
+}
+
+
+#middle-container,
 #middle-contaner {
     min-height: 70vh;
     box-sizing: border-box;
