@@ -22,7 +22,7 @@ let wins = 0
 let cards = []
 let botCard = []
 let goal = 0
-let maxPoints = 0
+let maxPoints = 500
 
 function limitInputToPoints() {
     const points = Number(point.textContent)
@@ -226,7 +226,7 @@ async function standFun() {
 function goals() {
     if (Number(point.textContent) >= Number(currentGoleElm.textContent)) {
         goleReachedElm.textContent = Number(goleReachedElm.textContent) + 1
-        currentGoleElm.textContent = Number(point.textContent) * 2.3
+        currentGoleElm.textContent = Math.floor(Number(point.textContent) * 2.3)
     }
 }
 

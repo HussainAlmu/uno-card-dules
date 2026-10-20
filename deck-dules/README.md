@@ -22,9 +22,6 @@ pause resume
 
 High Score
 Dark and Light mode
-Different difficulty levels
-vs computer and vs human
 leaderboard
-pause resume
 sound (music or sound effects)
 Animation

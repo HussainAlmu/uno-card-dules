@@ -291,3 +291,60 @@ body[data-theme="light"] {
   transform: translateY(0.3571em);
   box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
 }
+
+#easy {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  background-color: #00ff22;
+  padding: 1.0714em 2.8571em;
+  margin: 0.7143em;
+  font-size: 0.875em;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0 black, -0.3571em 0 black, 0 0.7143em #00000038, 0.3571em 0.3571em #00000038, -0.3571em 0.3571em #00000038, inset 0 0.3571em #ffffff36;
+  cursor: pointer;
+}
+
+#easy:active {
+  transform: translateY(0.3571em);
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
+}
+
+#fair {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  background-color: #ff9900;
+  padding: 1.0714em 2.8571em;
+  margin: 0.7143em;
+  font-size: 0.875em;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0 black, -0.3571em 0 black, 0 0.7143em #00000038, 0.3571em 0.3571em #00000038, -0.3571em 0.3571em #00000038, inset 0 0.3571em #ffffff36;
+  cursor: pointer;
+}
+
+#fair:active {
+  transform: translateY(0.3571em);
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
+}
+
+#hard {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  background-color: #ff0000;
+  padding: 1.0714em 2.8571em;
+  margin: 0.7143em;
+  font-size: 0.875em;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0 black, -0.3571em 0 black, 0 0.7143em #00000038, 0.3571em 0.3571em #00000038, -0.3571em 0.3571em #00000038, inset 0 0.3571em #ffffff36;
+  cursor: pointer;
+}
+
+#hard:active {
+  transform: translateY(0.3571em);
+  box-shadow: 0 0.3571em black, 0 -0.3571em black, 0.3571em 0, -0.3571em 0, inset 0 0.3571em #00000038;
+}

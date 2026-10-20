@@ -4,7 +4,9 @@ let turn
 let isDrawingCards = false
 let win
 let isUno = false
-let pVp = false
+let mode = 'fair'
+let gameStarted = false
+
 document.body.dataset.theme = localStorage.getItem("theme") || "dark";
 /*------------------------ Cached Element References ------------------------*/
 const contanerUserCardsElm = document.querySelector("#user-card-contaner")
@@ -18,7 +20,41 @@ const playAgainElm = document.querySelector("#play-again")
 const unoButtonElm = document.querySelector("#uno")
 console.log(unoButtonElm)
 
+
 /*-------------------------------- Functions --------------------------------*/
+
+Swal.fire({
+    title: "Pick How Do You Want To Play",
+    html: `
+      <button id="easy" type="button">Easy</button>
+      <button id="fair" type="button">Fair</button>
+      <button id="hard" type="button">Hard</button>
+    `,
+    showConfirmButton: false,
+    background: "rgba(0, 0, 0, 0.1)",
+    color: "#fff",
+    didOpen: () => {
+        const popup = Swal.getPopup();
+        const container = Swal.getContainer();
+        container.style.padding = "0";
+        popup.style.paddingTop = "9rem";
+        popup.style.width = "100vw";
+        popup.style.height = "100vh";
+        popup.style.maxWidth = "none";
+        popup.style.margin = "0";
+        popup.style.borderRadius = "0";
+        ["easy", "fair", "hard"].forEach((id) => {
+            document.getElementById(id).addEventListener("click", () => {
+                mode = id;
+                startGame()
+                Swal.close();
+            });
+        });
+    },
+
+
+});
+
 function PickColor(newCard) {
     let cardColor = Math.floor(Math.random() * 4) + 1
     if (cardColor === 1) {
@@ -337,7 +373,7 @@ function findCommon() {
 }
 
 function didWin() {
-
+    if (!gameStarted) return
 
 
     if (contanerUserCardsElm.children.length === 1) {
@@ -396,13 +432,29 @@ function playAgain() {
     playAgainElm.style.display = 'none'
     hideColorPickButtons()
 
-    drawCards(9, 'both')
+    startGame()
     createDiscardCard()
     canPlay()
     console.log("hi")
 }
 
-drawCards(9, 'both')
+function startGame() {
+    gameStarted = true
+    if (mode === 'fair') {
+        drawCards(9, 'both')
+    }
+    if (mode === 'easy') {
+        drawCards(9, "bot")
+        drawCards(4, "user")
+
+    }
+    if (mode === 'hard') {
+        drawCards(9, "user")
+        drawCards(4, 'bot')
+    }
+}
+
+
 console.log(findCommon())
 createDiscardCard()
 canPlay()
