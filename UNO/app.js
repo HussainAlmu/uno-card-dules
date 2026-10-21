@@ -18,8 +18,13 @@ const colorPickButtonElm = document.querySelectorAll(".pick-color-button")
 const winnerElm = document.querySelector("#winner")
 const playAgainElm = document.querySelector("#play-again")
 const unoButtonElm = document.querySelector("#uno")
+const cardFlipSound = new Audio("sounds/card-flip.mp3")
 console.log(unoButtonElm)
 
+function playCardFlipSound() {
+    cardFlipSound.currentTime = 0
+    cardFlipSound.play()
+}
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -105,6 +110,7 @@ async function drawCards(amount, side) {
 }
 
 function CardGen(contaner) {
+    playCardFlipSound()
     const newCard = document.createElement("img");
     const number = Math.floor(Math.random() * 14) + 1;
 
@@ -221,6 +227,15 @@ function playCard(event) {
     }
     if (event && event.target) {
         console.log(event.target)
+        const card = event.target
+        if (card.classList.contains('user-card') && (
+            card.textContent === discardCardElm.textContent ||
+            card.style.color === discardCardElm.style.color ||
+            card.textContent === '4+' ||
+            card.textContent === '✦'
+        )) {
+            playCardFlipSound()
+        }
         if (event.target.textContent === discardCardElm.textContent || event.target.style.color === discardCardElm.style.color) {
             event.target.remove()
             discardCardElm.textContent = event.target.textContent
@@ -273,6 +288,7 @@ function playCard(event) {
                     discardCardElm.src = 'image/wild_draw_4.png'
                     discardCardElm.style.color = findCommon()
                     botCard.remove()
+                    playCardFlipSound()
                     drawCards(4, 'user')
                     turn = 'bot'
                     botPlayedCard = true
@@ -284,6 +300,7 @@ function playCard(event) {
                     discardCardElm.src = 'image/wild_change_color.png'
                     botCard.remove()
                     discardCardElm.style.color = findCommon()
+                    playCardFlipSound()
                     turn = 'user'
                     botPlayedCard = true
                     break
@@ -304,6 +321,7 @@ function playCard(event) {
                         discardCardElm.src = `image/${color}_${playedCardText}.png`
                     }
                     botCard.remove()
+                    playCardFlipSound()
                     turn = playedCardText === "s" || playedCardText === "⊙" ? "bot" : "user"
                     if (playedCardText === '2+') {
                         drawCards(2, 'user')
@@ -469,6 +487,7 @@ didWin()
 
 
 contanerUserCardsElm.addEventListener('click', playCard)
+
 drawCardButtonElm.addEventListener('click', () => drawCards(1, "user"))
 
 
